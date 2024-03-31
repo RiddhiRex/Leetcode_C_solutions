@@ -1,0 +1,74 @@
+#include <stdio.h>
+#include<stdlib.h>
+
+struct ListNode {
+    struct ListNode *next;
+    int val;
+}node;
+
+void display(struct ListNode *curr){
+    while(curr!=NULL){
+        printf("%d \n", curr->val);
+        curr = curr->next;
+    }
+    return;
+}
+
+struct ListNode* insert(struct ListNode *head, int val){
+    struct ListNode *newNode = NULL;
+    newNode = (struct ListNode*)malloc(sizeof(struct ListNode));
+    if(newNode==NULL)
+        //error handling
+        return head;
+    newNode->next = NULL;
+    newNode->val = val+1;
+    if(head==NULL){
+        head = newNode;
+        return head;
+    } else {
+        struct ListNode *curr = head;
+        while(curr->next!=NULL) {
+            curr=curr->next;
+        }
+        curr->next = newNode;
+        return head;
+    }
+   
+}
+
+struct ListNode* removeNode(struct ListNode *head, int val){
+    if(head==NULL) {
+        //error handling. no node found
+        return head;
+    } else if(head->val==val){
+         struct ListNode *newHead = head->next;
+         free(head);
+         return newHead;
+     }
+    struct ListNode *curr=head;
+    struct ListNode *prev=NULL;
+    while(curr!=NULL && curr->val!=val){
+        prev = curr;
+        curr=curr->next;
+    }
+    if(curr==NULL){
+        //node with val not found
+        return head;
+       
+    } else{
+        prev->next=curr->next;
+        free(curr);
+        return head;
+    }
+   
+}
+int main() {
+    struct ListNode *head=NULL;
+    head = insert(head, 4);
+    head = insert(head, 5);
+    head = insert(head, 6);
+    display(head);
+    head = removeNode(head, 4);
+    display(head);
+    return 0;
+}
