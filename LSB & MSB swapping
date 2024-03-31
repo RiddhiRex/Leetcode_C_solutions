@@ -1,0 +1,15 @@
+C program to swap the least significant bit (LSB) and most significant bit (MSB)  in an 8-bit integer:
+    unsigned int num=5;
+    // Extract LSB and MSB
+    unsigned int lsb = num & 1;       // Extracting LSB (bit 0)
+    unsigned int msb = num >> 7;      // Extracting MSB (bit 7)
+    
+    // Clear LSB and MSB in num
+    num &= ~1;                 // Clearing LSB
+    num &= ~(1 << 7);                   // Clearing MSB 
+    
+    // Set LSB and MSB in num
+    num |= (lsb << 7);                  // Setting LSB at MSB position
+    num |= msb;                 // Setting MSB at LSB position
+    
+    printf(“%b”, num);
