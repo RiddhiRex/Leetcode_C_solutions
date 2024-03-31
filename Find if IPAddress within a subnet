@@ -1,0 +1,22 @@
+// C program to find if ip address is within subnet if IP addresses are given in dotted decimal format:
+/* Here inet_addr() function (defined within <arpa/inet.h> converts ip addr from dotted decimal format to uint32_t format(defined within <stdint.h> header
+inet_addr() gives output in network byte order format(big endian) always. we convert it to host byte order since ip addresses are usually worked with in host byte order in order to maintain consistency and compatibility.
+*/
+#include <stdio.h>
+#include <stdint.h>
+#include <stdlib.h>
+#include <arpa/inet.h>
+
+// Function to check if an IP address is within a subnet
+int isIPAddressInSubnet(char *ip_address_str, char *subnet_address_str, char *subnet_mask_str) {
+    // Convert IP addresses and subnet mask to 32-bit unsigned integers
+    uint32_t ip_address = ntohl(inet_addr(ip_address_str));
+    uint32_t subnet_address = ntohl(inet_addr(subnet_address_str));
+    uint32_t subnet_mask = ntohl(inet_addr(subnet_mask_str));
+
+    // Perform bitwise AND between IP address and subnet mask
+    uint32_t network_address = ip_address & subnet_mask;
+
+    // Check if the network address matches the subnet address
+    return (network_address == subnet_address);
+}
