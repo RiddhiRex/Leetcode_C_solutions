@@ -1,0 +1,51 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+#define MAX_LINE_LENGTH 256
+
+typedef struct {
+    char command[64];
+    double timestamp;
+} LogEntry;
+
+int main() {
+    FILE *file;
+    char line[MAX_LINE_LENGTH];
+    LogEntry entries[1000]; // Assuming max 1000 log entries
+    int entryCount = 0;
+    double maxTimeTaken = 0.0;
+
+    // Open the log file
+    file = fopen("logfile.txt", "r");
+    if (file == NULL) {
+        perror("Error opening file");
+        return 1;
+    }
+
+    // Read log entries from the file
+    while (fgets(line, sizeof(line), file) != NULL) {
+        char *token = strtok(line, " "); // Assuming timestamp is separated by space
+        double timestamp = atof(token);
+        token = strtok(NULL, "\n"); // Assuming command is rest of the line
+        strcpy(entries[entryCount].command, token);
+        entries[entryCount].timestamp = timestamp;
+        entryCount++;
+    }
+
+    // Calculate maximum time taken for each command
+    for (int i = 0; i < entryCount - 1; i++) {
+        double timeTaken = entries[i + 1].timestamp - entries[i].timestamp;
+        if (timeTaken > maxTimeTaken) {
+            maxTimeTaken = timeTaken;
+        }
+    }
+
+    // Print the maximum time taken
+    printf("Max time taken for a command: %.2f\n", maxTimeTaken);
+
+    // Close the file
+    fclose(file);
+
+    return 0;
+}
