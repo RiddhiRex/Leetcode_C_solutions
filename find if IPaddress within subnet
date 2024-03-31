@@ -1,0 +1,23 @@
+
+//C program to find if ip address is within subnet:
+#include <stdint.h>
+// Function to check if an IP address is within a subnet
+int isIPAddressInSubnet(uint32_t ip_address, uint32_t subnet_address, uint32_t subnet_mask) {
+    // Perform bitwise AND between IP address and subnet mask
+    uint32_t network_address = ip_address & subnet_mask;
+    
+    // Check if the network address matches the subnet address
+    return (network_address == subnet_address);
+}
+
+int main() {
+    // Example IP address and subnet
+    uint32_t ip_address = 0xC0A80101; // 192.168.1.1
+    uint32_t subnet_address = 0xC0A80100; // 192.168.1.0
+    uint32_t subnet_mask = 0xFFFFFF00; // 255.255.255.0
+
+    // Check if the IP address is within the subnet
+    if (isIPAddressInSubnet(ip_address, subnet_address, subnet_mask))
+        printf("IP address is within the subnet.\n");
+}
+
