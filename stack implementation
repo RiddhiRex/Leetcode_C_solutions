@@ -1,0 +1,53 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+#define MAX_SIZE 100
+
+// Global variables to represent the stack
+int stack[MAX_SIZE];
+int top = -1;
+
+// Function to check if the stack is empty
+int isEmpty() {
+    return top == -1;
+}
+
+// Function to check if the stack is full
+int isFull() {
+    return top == MAX_SIZE - 1;
+}
+
+// Function to push an element onto the stack
+void push(int value) {
+    if (isFull()) {
+        printf("Stack overflow\n");
+        return;
+    }
+    stack[++top] = value;
+}
+
+// Function to pop an element from the stack
+int pop() {
+    if (isEmpty()) {
+        printf("Stack underflow\n");
+        exit(1);
+    }
+    return stack[top--];
+}
+
+int main() {
+    push(10);
+    push(20);
+    push(30);
+
+    printf("Popped element: %d\n", pop()); // Output: 30
+    printf("Popped element: %d\n", pop()); // Output: 20
+
+    push(40);
+
+    printf("Popped element: %d\n", pop()); // Output: 40
+
+    return 0;
+}
+
+
