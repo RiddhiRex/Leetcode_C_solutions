@@ -20,3 +20,18 @@ int isIPAddressInSubnet(char *ip_address_str, char *subnet_address_str, char *su
     // Check if the network address matches the subnet address
     return (network_address == subnet_address);
 }
+int main() {
+    // Example IP address and subnet
+    char ip_address_str[] = "192.168.1.1";
+    char subnet_address_str[] = "192.168.1.0";
+    char subnet_mask_str[] = "255.255.255.0";
+
+    // Check if the IP address is within the subnet
+    if (isIPAddressInSubnet(ip_address_str, subnet_address_str, subnet_mask_str)) {
+        printf("IP address is within the subnet.\n");
+    } else {
+        printf("IP address is not within the subnet.\n");
+    }
+
+    return 0;
+}
