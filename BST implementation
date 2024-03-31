@@ -1,0 +1,68 @@
+BST implementation in C
+#include <stdio.h>
+#include<stdlib.h>
+#include<stdbool.h>
+#include<limits.h>
+
+struct TreeNode {
+    int val;
+    struct TreeNode *left;
+    struct TreeNode *right;
+};
+
+struct TreeNode* insert(struct TreeNode *head, int val) {
+    struct TreeNode *newNode = (struct TreeNode *)malloc(sizeof(struct TreeNode));
+    newNode->val =val;
+    newNode->left=NULL;
+    newNode->right=NULL;
+    if(head==NULL) {
+        return newNode;
+    }
+    struct TreeNode *curr = head, *parent=head;
+    while(curr!=NULL) {
+        parent=curr;
+        if (curr->val>val)
+            curr=curr->left;
+        else
+        curr=curr->right;
+    }
+    if(parent->val>val)
+        parent->left = newNode;
+    else
+        parent->right = newNode;
+    return head;
+}
+void inorder_display(struct TreeNode *node) {
+    if(node==NULL)
+        return;
+    inorder_display(node->left);
+    printf("%d ", node->val);
+    inorder_display(node->right);
+    return;
+}
+
+bool isBST(struct TreeNode *node, int minval, int maxval) {
+    if (node==NULL)
+        return true;
+    if (node->val<=minval || node->val>=maxval)
+        return false;
+    return isBST(node->left, minval, node->val) && isBST(node->right, node->val, maxval);
+   
+}
+int main()
+{
+    struct TreeNode *head=NULL;
+    head = insert(head, 3);
+    insert(head, 5);
+    insert(head, 2);
+    insert(head, 8);
+    inorder_display(head);
+    //Check if a binary tree is a binary search tree.
+    int res = isBST(head, INT_MIN, INT_MAX);
+    if(res)
+        printf("Is BST");
+    else
+        printf("Is not BST");
+   
+    return 0;
+}
