@@ -1,0 +1,14 @@
+int stringCompare(const char *str1, const char *str2) {
+    while (*str1 && *str2 && *str1 == *str2) {
+        str1++;
+        str2++;
+    }
+    return (*str1 == *str2) ? 0 : (*str1 > *str2) ? 1 : -1;
+}
+
+int main() {
+    char str1[] = "Hello";
+    char str2[] = "Hello";
+    int result = stringCompare(str1, str2);
+    return 0;
+}
