@@ -1,4 +1,4 @@
-C program to implement memcpy:
+//C program to implement memcpy:
  void memcopy(void *b, const void *a, int len) {
     char *ip = (char *)a;
     char *op = (char *)b;
